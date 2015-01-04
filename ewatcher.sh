@@ -1,8 +1,8 @@
 #!/bin/bash
 # A lightweight cli ebay bidding watcher
-
-# A copypasta of commit 1df36d65535bd8131a3dac1a7d554a55d2ae61fa
-# of the <https://github.com/dominictarr/JSON.sh> script.
+#
+# A copypasta of the commit 1df36d65535bd8131a3dac1a7d554a55d2ae61fa
+# of <https://github.com/dominictarr/JSON.sh>
 #
 # The MIT License
 # Copyright (c) 2011 Dominic Tarr
@@ -24,6 +24,18 @@
 # ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
 # TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 # SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+#
+# Apache License, Version 2.0
+# Copyright (c) 2011 Dominic Tarr
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+# http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 #
 JSON() {
   throw () {
