@@ -1,10 +1,8 @@
-# Introduction #
-
-Ewatcher is a lightweight ebay bidding watcher written in pure bash using [dominictarr][]'s [JSON.sh][] script and an undocumented ebay json http api.
+ewatcher.sh is a lightweight ebay bidding watcher written in pure bash using [dominictarr][]'s [JSON.sh][] script.
 
 # Usage #
 
-Simply invoke the script with either the id or the url of the auction:
+Invoke the script with either the id or the url of the auction:
 
 ```
 $ ./ewatcher.sh 'http://www.ebay.com/itm/3ds-xl-bundle-/321632428356?pt=Video_Games&hash=item4ae2c96144'
