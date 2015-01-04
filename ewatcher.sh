@@ -257,7 +257,7 @@ else # Start watching
   # Create a temporary file to store ebay responses
   JSON="$(mktemp)"
   trap 'exit 1' 1 2 3 6 9 14 15
-  trap 'rm '"$JSON"'; echo' EXIT
+  trap 'rm '"$JSON"'; [ -t 1 ] && echo' EXIT
 
   while true; do
 
@@ -275,8 +275,8 @@ else # Start watching
       ! [ -z "$LAST" ] && echo
       LAST="$PRICE"
       DATE="$(date '+%Y/%m/%d %H:%M:%S')"
-    else # Otherwise, rewrite the current line
-      printf "%b\n" "\033[1K\033[1A"
+    else # Otherwise, rewrite the current line (if we're in a term)
+      [ -t 1 ] && printf "%b\n" "\033[1K\033[1A"
     fi
 
     # Print the details
@@ -293,14 +293,16 @@ else # Start watching
     # Otherwise, print the rest of the details
     [ -z "$DAY" -o -z "$HRS" -o -z "$MIN" -o -z "$SEC" ] && continue
     LEFT=$(($DAY * 86400 + $HRS * 3600 + $MIN * 60 + $SEC))
-         if ! [ $DAY = "0" ]; then printf '%dd %dh %dm %02ds left' $DAY $HRS $MIN $SEC
-    else if ! [ $HRS = "0" ]; then printf '%dh %dm %02ds left' $HRS $MIN $SEC
+         if ! [ $DAY = "0" ]; then printf '%dd %02dh %02dm %02ds left' $DAY $HRS $MIN $SEC
+    else if ! [ $HRS = "0" ]; then printf '%dh %02dm %02ds left' $HRS $MIN $SEC
     else if ! [ $MIN = "0" ]; then printf '%dm %02ds left' $MIN $SEC
-    else                           printf '%02ds left' $SEC; fi; fi; fi
+    else                           printf '%ds left' $SEC; fi; fi; fi
+    [ -t 1 ] || echo # If we're not in a term, we output a new line
 
     # Sleep for a variable amount of time
          if [ "$LEFT" -gt "1800" ]; then sleep 30s
-    else if [ "$LEFT" -gt "300"  ]; then sleep  5s; fi; fi
+    else if [ "$LEFT" -gt "300"  ]; then sleep  5s
+    else                                 sleep  1s; fi; fi
   
   done
 fi
