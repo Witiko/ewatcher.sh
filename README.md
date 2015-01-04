@@ -1,4 +1,4 @@
-Ewatcher is an ebay bidding watcher written in pure bash using [dominictarr][]'s [JSON.sh][].
+Ewatcher is an ebay bidding monitor written in pure bash using [dominictarr][]'s [JSON.sh][].
 
 # Usage #
 
