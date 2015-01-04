@@ -283,7 +283,7 @@ else # Start watching
       LAST="$PRICE"
       DATE="$(date '+%Y/%m/%d %H:%M:%S')"
     else # Otherwise, rewrite the current line (if we're in a term)
-      [ $TERM  ] && printf "%b\n" "\033[1K\033[1A"
+      $TERM && printf "%b\n" "\033[1K\033[1A"
     fi
 
     # Print the details
