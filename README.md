@@ -5,15 +5,8 @@ Ewatcher is an ebay bidding watcher written in pure bash using [dominictarr][]'s
 Invoke the script with either the id or the url of the auction:
 
 ```
-$ ./ewatcher.sh 'http://www.ebay.com/itm/3ds-xl-bundle-/321632428356?pt=Video_Games&hash=item4ae2c96144'
+$ ./ewatcher.sh http://www.ebay.com/itm/3ds-xl-bundle-/321632428356
 Watching bids for auction #321632428356:
-2015/01/04 00:58:15 – US $192.50 (a***r), 5m 32s left
-2015/01/04 00:58:37 – US $197.50 (a***r), 5m 14s left
-2015/01/04 00:58:54 – US $202.50 (a***r), 5m 06s left
-2015/01/04 00:59:04 – US $210.00 (a***r), 4m 56s left
-2015/01/04 00:59:08 – US $217.50 (a***r), 4m 48s left
-2015/01/04 00:59:17 – US $220.00 (a***r), 4m 29s left
-2015/01/04 00:59:34 – US $225.00 (a***r), 4m 01s left
 2015/01/04 01:00:02 – US $230.00 (a***r), 3m 27s left
 2015/01/04 01:00:37 – US $232.50 (2***s), 3m 01s left
 2015/01/04 01:01:04 – US $235.00 (a***r), 2m 15s left
