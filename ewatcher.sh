@@ -297,7 +297,7 @@ else # Start watching
     else if ! [ $HRS = "0" ]; then printf '%dh %02dm %02ds left' $HRS $MIN $SEC
     else if ! [ $MIN = "0" ]; then printf '%dm %02ds left' $MIN $SEC
     else                           printf '%ds left' $SEC; fi; fi; fi
-    [ -t 1 ] || echo # If we're not in a term, we output a new line
+    [ -t 1 ] || echo # If we're not in a term, output a new line
 
     # Sleep for a variable amount of time
          if [ "$LEFT" -gt "1800" ]; then sleep 30s
