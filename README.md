@@ -2,7 +2,7 @@ Ewatcher is an ebay bidding watcher written in pure bash using [dominictarr][]'s
 
 # Usage #
 
-Invoke the script with either the id or the url of the auction:
+Invoke the script with either the id or the url of an auction:
 
 ```
 $ ./ewatcher.sh http://www.ebay.com/itm/3ds-xl-bundle-/321632428356
