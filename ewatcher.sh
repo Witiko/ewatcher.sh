@@ -246,6 +246,13 @@ hashColor() {
   ))m${line}\033[m"
 }
 
+# Find out, whether we are in a terminal
+[ -t 1 ]; TERM=$(if [ $? = 0 ]; then
+  echo true
+else
+  echo false
+fi)
+
 if [ -z "$1" ]; then # Print usage info
   printf '%s\n' "Usage: $0 AuctionID"
 else # Start watching
@@ -257,7 +264,7 @@ else # Start watching
   # Create a temporary file to store ebay responses
   JSON="$(mktemp)"
   trap 'exit 1' 1 2 3 6 9 14 15
-  trap 'rm '"$JSON"'; [ -t 1 ] && echo' EXIT
+  trap 'rm '"$JSON"'; $TERM && echo' EXIT
 
   while true; do
 
@@ -276,16 +283,19 @@ else # Start watching
       LAST="$PRICE"
       DATE="$(date '+%Y/%m/%d %H:%M:%S')"
     else # Otherwise, rewrite the current line (if we're in a term)
-      [ -t 1 ] && printf "%b\n" "\033[1K\033[1A"
+      [ $TERM  ] && printf "%b\n" "\033[1K\033[1A"
     fi
 
     # Print the details
     printf '%s' "$DATE – $(<$JSON parse '\["ViewItemLiteResponse","Item",0,"CurrentPrice","MoneyStandard"\]') ("
-    printf '%s' "$(<$JSON parse '\["ViewItemLiteResponse","Item",0,"HighBidder","Name"\]' | hashColor)"')'
+    printf '%s' "$(<$JSON parse '\["ViewItemLiteResponse","Item",0,"HighBidder","Name"\]' |
+      if $TERM; then hashColor; else cat; fi)"')'
 
     # Exit once the auction has finished
     if [ $(<$JSON parse '\["ViewItemLiteResponse","Item",0,"IsFinalized"\]') = true ]; then
-      printf ', winner'; exit
+      printf ', winner'
+      $TERM || echo # If we're not in a term, output a new line
+      exit
     else
       printf ', '
     fi
@@ -297,7 +307,7 @@ else # Start watching
     else if ! [ $HRS = "0" ]; then printf '%dh %02dm %02ds left' $HRS $MIN $SEC
     else if ! [ $MIN = "0" ]; then printf '%dm %02ds left' $MIN $SEC
     else                           printf '%ds left' $SEC; fi; fi; fi
-    [ -t 1 ] || echo # If we're not in a term, output a new line
+    $TERM || echo # If we're not in a term, output a new line
 
     # Sleep for a variable amount of time
          if [ "$LEFT" -gt "1800" ]; then sleep 30s
