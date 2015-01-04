@@ -268,8 +268,6 @@ else # Start watching
     HRS="$(<"$JSON" parse '\["ViewItemLiteResponse","Item",0,"TimeLeft","HoursLeft"\]')"
     MIN="$(<"$JSON" parse '\["ViewItemLiteResponse","Item",0,"TimeLeft","MinutesLeft"\]')"
     SEC="$(<"$JSON" parse '\["ViewItemLiteResponse","Item",0,"TimeLeft","SecondsLeft"\]')"
-    [ \( -z "$DAY" -o -z "$HRS" -o -z "$MIN" -o -z "$SEC" \) \
-      -a ! $(<$JSON parse '\["ViewItemLiteResponse","Item",0,"IsFinalized"\]') = true ] && continue
 
     # If there's a price update, store it and output a new line
     PRICE="$(<"$JSON" parse '\["ViewItemLiteResponse","Item",0,"CurrentPrice","Amount"\]')"
@@ -293,6 +291,7 @@ else # Start watching
     fi
 
     # Otherwise, print the rest of the details
+    [ -z "$DAY" -o -z "$HRS" -o -z "$MIN" -o -z "$SEC" ] && continue
     LEFT=$(($DAY * 86400 + $HRS * 3600 + $MIN * 60 + $SEC))
          if ! [ $DAY = "0" ]; then printf '%dd %dh %dm %02ds left' $DAY $HRS $MIN $SEC
     else if ! [ $HRS = "0" ]; then printf '%dh %dm %02ds left' $HRS $MIN $SEC
