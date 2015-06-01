@@ -16,5 +16,14 @@ Watching bids for auction #321632428356:
 2015/01/04 01:02:59 – US $251.50 (2***s), winner
 ```
 
+When the file descriptor 3 is open, it will receive raw price updates:
+
+```bash
+# Send price updates as desktop notifications
+# and print standard output into the terminal
+exec 4>&1; ebayWatcher 261907474113 3>&1 1>&4 |
+ while read p; do notify-send "$p"; done 4>&1
+```
+
 [dominictarr]: https://github.com/dominictarr
 [JSON.sh]: https://github.com/dominictarr/JSON.sh
