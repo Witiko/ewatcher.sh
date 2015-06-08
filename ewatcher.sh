@@ -275,9 +275,10 @@ else # Start watching
     HRS="$(<"$JSON" parse '\["ViewItemLiteResponse","Item",0,"TimeLeft","HoursLeft"\]')"
     MIN="$(<"$JSON" parse '\["ViewItemLiteResponse","Item",0,"TimeLeft","MinutesLeft"\]')"
     SEC="$(<"$JSON" parse '\["ViewItemLiteResponse","Item",0,"TimeLeft","SecondsLeft"\]')"
+    BIDDER="$(<"$JSON" parse '\["ViewItemLiteResponse","Item",0,"HighBidder","Name"\]')"
+    PRICE="$(<"$JSON" parse '\["ViewItemLiteResponse","Item",0,"CurrentPrice","MoneyStandard"\]')"
 
     # If there's a price update, store it and output a new line
-    PRICE="$(<"$JSON" parse '\["ViewItemLiteResponse","Item",0,"CurrentPrice","MoneyStandard"\]')"
     if ! [ "$PRICE" = "$LAST" ]; then
       # If FD 3 is open, send price updates into it
       (printf '%s\n' "$PRICE" 1>&3) 2>&-
@@ -289,9 +290,10 @@ else # Start watching
     fi
 
     # Print the details
-    printf '%s — %s (%s)' "$DATE" "$PRICE" "$(<$JSON parse \
-      '\["ViewItemLiteResponse","Item",0,"HighBidder","Name"\]' |
-      if $TERM; then hashColor; else cat; fi)"
+    printf '%s — %s' "$DATE" "$PRICE"
+    if [ -n "$BIDDER" ]; then
+      printf ' (%s)' "$(echo $BIDDER | if $TERM; then hashColor; else cat; fi)"
+    fi
 
     # Exit once the auction has finished
     if [ $(<$JSON parse '\["ViewItemLiteResponse","Item",0,"IsFinalized"\]') = true ]; then
