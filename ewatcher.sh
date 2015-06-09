@@ -297,7 +297,11 @@ else # Start watching
 
     # Exit once the auction has finished
     if [ $(<$JSON parse '\["ViewItemLiteResponse","Item",0,"IsFinalized"\]') = true ]; then
-      printf ', winner'
+      if [ -n "$BIDDER" ]; then
+        printf ', finished'
+      else
+        printf ', expired'
+      fi
       $TERM || echo # If we're not in a term, output a new line
       exit
     else
