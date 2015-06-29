@@ -22,7 +22,7 @@ When the file descriptor 3 is open, it will receive raw price updates:
 # Send price updates as desktop notifications
 # and print standard output into the terminal
 exec 4>&1; ./ewatcher.sh 261907474113 3>&1 1>&4 |
-  while read p; do notify-send "$p"; done  4>&1
+  while read p; do notify-send "$p"; done
 ```
 
 [dominictarr]: https://github.com/dominictarr
