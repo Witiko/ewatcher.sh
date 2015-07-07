@@ -259,7 +259,6 @@ else # Start watching
   
   # Parse the auction id out of $1
   ID="$(printf '%s' "$1" | sed 's#.*/\([0123456789]*\)?.*#\1#')"
-  printf '%s\n' "Watching bids for auction #$ID:"
 
   # Create a temporary file to store ebay responses
   JSON="$(mktemp)"

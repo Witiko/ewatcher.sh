@@ -6,7 +6,6 @@ Invoke the script with either the id or the url of an auction:
 
 ```
 $ ./ewatcher.sh http://www.ebay.com/itm/3ds-xl-bundle-/321632428356
-Watching bids for auction #321632428356:
 2015/01/04 01:00:02 – US $230.00 (a***r), 3m 27s left
 2015/01/04 01:00:37 – US $232.50 (2***s), 3m 01s left
 2015/01/04 01:01:04 – US $235.00 (a***r), 2m 15s left
