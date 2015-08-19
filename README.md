@@ -12,7 +12,7 @@ Ensure that [dominictarr][]'s [JSON.sh][] is executable and present in either
 Invoke the script with either the id or the url of an ebay auction:
 
 ```
-$ ./ewatcher.sh http://www.ebay.com/itm/3ds-xl-bundle-/321632428356
+$ ewatcher.sh http://www.ebay.com/itm/3ds-xl-bundle-/321632428356
 2015/01/04 01:00:02 – US $230.00 (a***r), 3m 27s left
 2015/01/04 01:00:37 – US $232.50 (2***s), 3m 01s left
 2015/01/04 01:01:04 – US $235.00 (a***r), 2m 15s left
@@ -25,11 +25,9 @@ $ ./ewatcher.sh http://www.ebay.com/itm/3ds-xl-bundle-/321632428356
 When the file descriptor 3 is open, it will receive raw price updates:
 
 ```bash
-# Send price updates as desktop notifications
-# and print standard output into the terminal
-exec 4>&1; ./ewatcher.sh 261907474113 3>&1 1>&4 |
-  while read p; do notify-send "$p"; done
+$ exec 4>&1; ewatcher.sh 261907474113 3>&1 1>&4 |
+>   while read p; do notify-send "$p"; done
 ```
 
-[dominictarr]: https://github.com/dominictarr
-[JSON.sh]: https://github.com/dominictarr/JSON.sh
+ [dominictarr]: https://github.com/dominictarr
+ [JSON.sh]: https://github.com/dominictarr/JSON.sh
