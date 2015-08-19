@@ -1,8 +1,15 @@
 Ewatcher is an ebay bidding monitor written in pure bash using [dominictarr][]'s [JSON.sh][].
 
+# Installation #
+
+Ensure that [dominictarr][]'s [JSON.sh][] is executable and present in either
+
+  * one of the `$PATH` directories,
+  * the same directory as the script.
+
 # Usage #
 
-Invoke the script with either the id or the url of an auction:
+Invoke the script with either the id or the url of an ebay auction:
 
 ```
 $ ./ewatcher.sh http://www.ebay.com/itm/3ds-xl-bundle-/321632428356
