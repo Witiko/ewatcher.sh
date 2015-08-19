@@ -73,7 +73,7 @@ else # Start watching
     fi
 
     # Exit once the auction has finished
-    if [ $(<$JSON parse '\["ViewItemLiteResponse","Item",0,"IsFinalized"\]') = true ]; then
+    if [ $(<"$JSON" parse '\["ViewItemLiteResponse","Item",0,"IsFinalized"\]') = true ]; then
       if [ -n "$BIDDER" ]; then
         printf ', finished'
       else
