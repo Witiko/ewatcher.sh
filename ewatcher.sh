@@ -95,9 +95,9 @@ else # Start watching
     $TERM || echo # If we're not in a term, output a new line
 
     # Sleep for a variable amount of time
-         if [ "$LEFT" -gt "1800" ]; then sleep 30s
-    else if [ "$LEFT" -gt "300"  ]; then sleep  5s
-    else                                 sleep  1s; fi; fi
+         if [ "$LEFT" -gt 1800 ]; then sleep 30s
+    else if [ "$LEFT" -gt 300  ]; then sleep  5s
+    else                               sleep  1s; fi; fi
   
   done
 fi
