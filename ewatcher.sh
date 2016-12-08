@@ -39,15 +39,18 @@ else # Start watching
   ID="$(printf '%s' "$1" | sed 's#.*/\([0123456789]*\)?.*#\1#')"
 
   # Create a temporary file to store ebay responses
+  DATA="$(mktemp)"
   JSON="$(mktemp)"
   trap 'exit 1' 1 2 3 6 9 14 15
-  trap 'rm '"$JSON"'; $TERM && echo' EXIT
+  trap 'rm -f "$DATA" "$JSON"; $TERM && echo' EXIT
 
   while true; do
 
     # Try to to grab and parse the JSON response
-    curl -s "http://www.ebay.com/itm/ws/eBayISAPI.dll?ViewItemLite&dl=3&item=$ID" | JSON > "$JSON"
-    [ $(wc -l < "$JSON") = 0 ] && continue
+    curl -s "http://www.ebay.com/itm/ws/eBayISAPI.dll?ViewItemLite&dl=3&item=$ID" > "$DATA"
+    [ $(wc -c < "$DATA") = 0 ] && sleep 5s && continue
+    <"$DATA" JSON > "$JSON"
+    [ $(wc -l < "$JSON") = 0 ] && sleep 5s && continue
     DAY="$(<"$JSON" parse '\["ViewItemLiteResponse","Item",0,"TimeLeft","DaysLeft"\]')"
     HRS="$(<"$JSON" parse '\["ViewItemLiteResponse","Item",0,"TimeLeft","HoursLeft"\]')"
     MIN="$(<"$JSON" parse '\["ViewItemLiteResponse","Item",0,"TimeLeft","MinutesLeft"\]')"
